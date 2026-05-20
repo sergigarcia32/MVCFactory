@@ -1,0 +1,2 @@
+# MVCFactory
+Patrón factory sencillo

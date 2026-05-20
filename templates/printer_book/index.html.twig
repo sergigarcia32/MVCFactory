@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulario Bootstrap
+{% endblock %}
+
+{% block body %}
+	<div class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card shadow-sm">
+					<div class="card-body">
+						<h1 class="card-title fs-4 mb-4">Selecciona cómo pintar el resultado</h1>
+						<a class="btn btn-secondary" href="{{ path('print', { 'type': 'text', 'message': 'Hola, mundo texto plano!' }) }}">Imprimir como Texto Plano</a>
+						<a class="btn btn-primary" href="{{ path('print', { 'type': 'html', 'message': 'Hola, mundo! HTML' }) }}">Imprimir como HTML</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container mt-5">
+		<h1>Resultado de la Impresión</h1>
+		{% if not output %}
+			<p>No hay resultado para mostrar.</p>
+		</div>
+
+	{% else %}
+		<div class="card mt-3">
+			<div class="card-body">
+				{{ output|raw }}
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
