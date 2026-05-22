@@ -29,18 +29,20 @@ final class PrinterBookController extends AbstractController
     #[Route('/print/{type}/{message}', name: "print")]
     public function print(string $type, string $message): Response
     {
+        $output = null;
+        $error = null;
+
         try {
             $printer = $this->factory->create($type);
-
             $output = $printer->print($message);
-            return $this->render('printer_book/index.html.twig', [
-                'controller_name' => 'PrinterBookController',
-                'output' => $output,
-
-            ]);
-        } //capturar el error de tipo de impresora no existente
-        catch (\InvalidArgumentException $e) {
-            return new Response($e->getMessage(), 400);
+        } catch (\InvalidArgumentException $e) {
+            $error = $e->getMessage();
         }
+
+        return $this->render('printer_book/index.html.twig', [
+            'controller_name' => 'PrinterBookController',
+            'output' => $output,
+            'error' => $error,
+        ]);
     }
 }
