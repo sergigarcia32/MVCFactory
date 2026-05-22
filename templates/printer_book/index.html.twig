@@ -18,18 +18,28 @@
 		</div>
 	</div>
 
-
-	<div class="container mt-5">
-		<h1>Resultado de la Impresión</h1>
-		{% if not output %}
-			<p>No hay resultado para mostrar.</p>
+	{% if error is defined and error.code is defined %}
+		<div class="alert alert-danger mt-3">
+			<h4 class="alert-heading">
+				Error
+				{{ error.code }}
+			</h4>
+			<p>{{ error.message }}</p>
 		</div>
 
 	{% else %}
-		<div class="card mt-3">
-			<div class="card-body">
-				{{ output|raw }}
-			</div>
+		<div class="container mt-5">
+			<h1>Resultado de la Impresión</h1>
+
+			{% if output is defined and output %}
+				<div class="card mt-3">
+					<div class="card-body">
+						{{ output|raw }}
+					</div>
+				</div>
+			{% else %}
+				<p>No hay resultado para mostrar.</p>
+			{% endif %}
 		</div>
 	{% endif %}
 {% endblock %}

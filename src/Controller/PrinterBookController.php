@@ -23,6 +23,7 @@ final class PrinterBookController extends AbstractController
         return $this->render('printer_book/index.html.twig', [
             'controller_name' => 'PrinterBookController',
             'output' => null,
+            'error' => null,
         ]);
     }
 
@@ -36,7 +37,10 @@ final class PrinterBookController extends AbstractController
             $printer = $this->factory->create($type);
             $output = $printer->print($message);
         } catch (\InvalidArgumentException $e) {
-            $error = $e->getMessage();
+            $error = [
+                'code' => 400,
+                'message' => $e->getMessage(),
+            ];
         }
 
         return $this->render('printer_book/index.html.twig', [
